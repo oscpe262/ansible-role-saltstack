@@ -1,0 +1,22 @@
+## roles/ansible-role-saltstack/handlers/main.yml
+# vim:ft=ansible:
+---
+- name: restart salt-master
+  service:
+    name: salt-master
+    state: restarted
+    enabled: yes
+
+- name: restart salt-minion
+  service:
+    name: salt-minion
+    state: restarted
+    enabled: yes
+
+- name: open firewall
+  firewalld:
+    port: 4505-4506/tcp
+    permanent: true
+    state: enabled
+    immediate: true
+...

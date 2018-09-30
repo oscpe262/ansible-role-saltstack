@@ -1,0 +1,36 @@
+## roles/ansible-role-saltstack/tasks/Fedora.yml
+# vim:ft=ansible:
+---
+- name: Install SaltStack base packages and Salt Minion
+  package:
+    name: '{{ item }}'
+    state: present
+  notify: restart salt-minion
+  with_flattened:
+    - salt-minion
+
+- name: Install SaltStack Master
+  package:
+    name: salt-master
+    state: '{{ salt_master_node }}'
+  notify: restart salt-master
+
+- name: Configure /etc/salt/minion
+  template:
+    src: minion.j2
+    dest: /etc/salt/minion
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart salt-minion
+
+- name: Configure /etc/salt/master
+  copy:
+    src: master.j2
+    dest: /etc/salt/master
+    owner: root
+    group: root
+    mode: 0640
+  when: "'present' in salt_master_node"
+  notify: restart salt-master
+...

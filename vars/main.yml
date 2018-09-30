@@ -1,0 +1,4 @@
+## roles/ansible-role-saltstack/vars/main.yml
+# vim:ft=ansible:
+---
+...

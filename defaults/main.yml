@@ -1,0 +1,6 @@
+## roles/ansible-role-saltstack/defaults/main.yml
+# vim:ft=ansible:
+---
+salt_master_node: absent
+salt_master_fqdn: localhost
+...
